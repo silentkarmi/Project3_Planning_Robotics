@@ -8,6 +8,11 @@ from constants import CONSTANT
 class Utility:
     @staticmethod
     def getCoordinatesInWorldFrame(coord):
-        x, y = coord
+        x = y = 0
+        if len(coord) > 2:
+            x, y, _ = coord
+        elif len(coord) == 2:
+            x, y = coord
+            
         y = CONSTANT.ORIGIN_POINT_OFFSET - y
-        return (x, y)
+        return (round(x), round(y))

@@ -20,7 +20,7 @@ class CircleObstacle(ObstacleInterface):
         cv2.imshow(CONSTANT.WINDOW_NAME, canvasArea)
         
     def isOutside(self, coord):
-        x, y = coord
+        x, y,_ = coord
         xcenter, ycenter = self.center
         result = (x - xcenter) ** 2 + (y - ycenter) ** 2 - (self.radius + CONSTANT.CLEARANCE) ** 2
         return result > 0

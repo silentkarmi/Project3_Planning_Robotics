@@ -27,7 +27,7 @@ class PolygonObstacle(ObstacleInterface):
         # created line equations to describe the boomerang polygon
         result = True
         linePlaneEquationValues = []
-        x, y = coord
+        x, y, _ = coord
         for i in range(len(self.points)):
             x1, y1 = self.points[i]
             

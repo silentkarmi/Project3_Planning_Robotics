@@ -6,11 +6,13 @@ from dataclasses import dataclass
 
 @dataclass
 class CONSTANT:
-    START_NODE = (0, 0)
-    GOAL_NODE = (0, 0)
+    START_NODE = (0, 0, 0)
+    GOAL_NODE = (0, 0, 0)
        
     CANVAS_WIDTH = 400
     CANVAS_HEIGHT = 250
+    
+    VECTOR_LEN = 50
     
     MOBILE_ROBOT_RADIUS = 10
     CLEARANCE = 5 + MOBILE_ROBOT_RADIUS 

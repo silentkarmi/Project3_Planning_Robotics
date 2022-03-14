@@ -10,10 +10,11 @@ import time
 if __name__ == "__main__":
     
     while (1):
-        startXCoord = 16 #int(input("\nStart X Coordinate:"))
-        startYCoord = 16 #int(input("Start Y Coordinate:"))
+        #to do input start goal thetha
+        startXCoord = 100 #int(input("\nStart X Coordinate:"))
+        startYCoord = 100 #int(input("Start Y Coordinate:"))
         
-        CONSTANT.START_NODE = (startXCoord, startYCoord)
+        CONSTANT.START_NODE = (startXCoord, startYCoord, 0)
         
         objTraversal = Traversal()
         objTraversal.startNode = Node(CONSTANT.START_NODE, None)
@@ -23,7 +24,7 @@ if __name__ == "__main__":
             endXCoord = 384 #int(input("End X Coordinate:"))
             endYCoord = 234 #int(input("End Y Coordinate:"))
         
-            CONSTANT.GOAL_NODE = (endXCoord, endYCoord)
+            CONSTANT.GOAL_NODE = (endXCoord, endYCoord, 0)
             objTraversal.endNode = Node(CONSTANT.GOAL_NODE , None)
             objTraversal.startNode = Node(CONSTANT.START_NODE, None)
             
