@@ -11,8 +11,8 @@ if __name__ == "__main__":
     
     while (1):
         #to do input start goal thetha
-        startXCoord = 50 #int(input("\nStart X Coordinate:"))
-        startYCoord = 50 #int(input("Start Y Coordinate:"))
+        startXCoord = 50#int(input("\nStart X Coordinate:"))
+        startYCoord = 50#int(input("Start Y Coordinate:"))
         
         CONSTANT.START_NODE = (startXCoord, startYCoord, 0)
         
@@ -21,22 +21,24 @@ if __name__ == "__main__":
         if Node.isCoordValid(CONSTANT.START_NODE) and \
             objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.startNode):
                 
-            endXCoord = 200 #int(input("End X Coordinate:"))
-            endYCoord = 200 #int(input("End Y Coordinate:"))
+            endXCoord =  230#int(input("End X Coordinate:"))
+            endYCoord =  200#int(input("End Y Coordinate:"))
         
             CONSTANT.GOAL_NODE = (endXCoord, endYCoord, -30)
             objTraversal.endNode = Node(CONSTANT.GOAL_NODE , None)
             objTraversal.startNode = Node(CONSTANT.START_NODE, None)
             
-            if Node.isCoordValid(CONSTANT.GOAL_NODE ) and \
-                objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.endNode):
+            if (Node.isCoordValid(CONSTANT.GOAL_NODE ) and 
+                objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.endNode)):
                 
                 start_time = time.time()
                 objTraversal.canvaArea.drawObstacles()
                 objTraversal.createNodeTree()
+                print(f"Total Nodes Searched:{len(objTraversal._closedList)}")
+                print("--- %s seconds for finding the solution ---" % (time.time() - start_time))
+                
                 objTraversal.backTrack()
                 objTraversal.drawSolution()
-                print("--- %s seconds for finding the solution ---" % (time.time() - start_time))
                 cv2.waitKey(0)
                 quit()
             else:

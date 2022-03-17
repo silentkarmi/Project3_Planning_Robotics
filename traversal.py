@@ -56,7 +56,7 @@ class Traversal:
             isNodeSafe = self.canvaArea.isOutsideObstacleSpace(node)
             
             if isNodeSafe:
-                isNodeInClosedList = node.coord in self._closedList
+                isNodeInClosedList = (node.coord[0], node.coord[1]) in self._closedList
                 if not isNodeInClosedList:
                     nodeInWorkspace = self.isNodeInOpenListThenUpdate(node)
                     if not nodeInWorkspace:
@@ -89,18 +89,18 @@ class Traversal:
         
     
     def createNodeTree(self):
-        
+        print("Generating Node Tree...")
         self.pushNode(self.startNode)
-        
+        cv2.waitKey(1)
         while(self._openList):
             
             # pops an element from the top of the list
             tempNode = heapq.heappop(self._openList)     
             self._closedList.add((round(tempNode.coord[0]),
                                         round(tempNode.coord[1])))  
-            self.canvaArea.drawNode(tempNode)
+            # self.canvaArea.drawNode(tempNode)
             
-            cv2.waitKey(1)
+            # cv2.waitKey(1)
              
             if(self.isThisGoalNode(tempNode)):
                 self.solutionNode = tempNode

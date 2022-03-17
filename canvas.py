@@ -19,6 +19,7 @@ class Canvas:
         self._obstacles.append(objObstacle)
     
     def drawObstacles(self):
+        print("Drawing Obstacles...")
         for objObstacle in self._obstacles:
             objObstacle.draw(self._canvasArea)
         cv2.waitKey(1)
@@ -38,7 +39,6 @@ class Canvas:
                      Utility.getCoordinatesInWorldFrame(node.coord), 
                      color)
             cv2.imshow(CONSTANT.WINDOW_NAME, self._canvasArea)
-            # cv2.waitKey(1)
             
     def isOutsideObstacleSpace(self, node):
         isValid = True
