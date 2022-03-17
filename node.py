@@ -6,6 +6,7 @@ from dataclasses import dataclass
 import math
 
 from constants import CONSTANT
+from utility import Utility
 
 @dataclass
 class Node:
@@ -20,7 +21,7 @@ class Node:
         self.parentNode = parent
         self.cost2come = 0
         self.cost2go = 0
-        # self.calculateCost2Go()
+        self.calculateCost2Go()
         
     def __lt__(self, other):
         return self.cost2come + self.cost2go < other.cost2come + other.cost2go
@@ -59,19 +60,10 @@ class Node:
     
     def _createNode(self, action):
         
-        def actionInDegree(thetha, d_thetha):
-            result = thetha + d_thetha
-            if result > 360:
-                result = result - 360
-            elif result < -360:
-                result = 360 + result
-            
-            return result
-        
         objNode = None
         x, y, originalThetha = self.coord
         
-        thetha = actionInDegree(originalThetha, action)
+        thetha = Utility.actionInDegree(originalThetha, action)
         newX = x + CONSTANT.VECTOR_LEN * math.cos(math.radians(thetha))
         newY = y + CONSTANT.VECTOR_LEN * math.sin(math.radians(thetha))
         

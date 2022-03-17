@@ -11,8 +11,8 @@ if __name__ == "__main__":
     
     while (1):
         #to do input start goal thetha
-        startXCoord = 100 #int(input("\nStart X Coordinate:"))
-        startYCoord = 100 #int(input("Start Y Coordinate:"))
+        startXCoord = 50 #int(input("\nStart X Coordinate:"))
+        startYCoord = 50 #int(input("Start Y Coordinate:"))
         
         CONSTANT.START_NODE = (startXCoord, startYCoord, 0)
         
@@ -21,10 +21,10 @@ if __name__ == "__main__":
         if Node.isCoordValid(CONSTANT.START_NODE) and \
             objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.startNode):
                 
-            endXCoord = 384 #int(input("End X Coordinate:"))
-            endYCoord = 234 #int(input("End Y Coordinate:"))
+            endXCoord = 200 #int(input("End X Coordinate:"))
+            endYCoord = 200 #int(input("End Y Coordinate:"))
         
-            CONSTANT.GOAL_NODE = (endXCoord, endYCoord, 0)
+            CONSTANT.GOAL_NODE = (endXCoord, endYCoord, -30)
             objTraversal.endNode = Node(CONSTANT.GOAL_NODE , None)
             objTraversal.startNode = Node(CONSTANT.START_NODE, None)
             
