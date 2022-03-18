@@ -19,6 +19,7 @@ class Traversal:
 
     def __init__(self):
         self._closedList = set() #ToDo: Create a matrix and go to that do a 1, to tell the node has been visited
+        self._closeListNodes = []
         self._openList = []
         self._listSolution = []
         
@@ -91,16 +92,13 @@ class Traversal:
     def createNodeTree(self):
         print("Generating Node Tree...")
         self.pushNode(self.startNode)
-        cv2.waitKey(1)
         while(self._openList):
             
             # pops an element from the top of the list
             tempNode = heapq.heappop(self._openList)     
+            self._closeListNodes.append(tempNode)
             self._closedList.add((round(tempNode.coord[0]),
                                         round(tempNode.coord[1])))  
-            # self.canvaArea.drawNode(tempNode)
-            
-            # cv2.waitKey(1)
              
             if(self.isThisGoalNode(tempNode)):
                 self.solutionNode = tempNode
@@ -111,16 +109,28 @@ class Traversal:
         else:
             print("SOLUTION NOT FOUND")
             
+    def drawNodeTree(self):
+        print("Drawing Node Tree...")
+        counter = 0
+        for tempNode in self._closeListNodes:
+            self.canvaArea.drawNode(tempNode)
+            counter +=1
+            cv2.waitKey(1)
+            
     def backTrack(self):
+        print("Backtracking...")
         self._listSolution = []
         tempNode = self.solutionNode
         while tempNode != None:
             self._listSolution.append(tempNode)
             tempNode = tempNode.parentNode
             
-    def drawSolution(self):            
+    def drawSolution(self):  
+        print("Drawing the solution...")          
         for node in self._listSolution[::]:
             self.canvaArea.drawMobileRobot(node)
+            cv2.waitKey(1)
             
         for node in self._listSolution[::-1]:
             self.canvaArea.drawNode(node, CONSTANT.COLOR_BLUE)
+            cv2.waitKey(1)

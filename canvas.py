@@ -22,7 +22,7 @@ class Canvas:
         print("Drawing Obstacles...")
         for objObstacle in self._obstacles:
             objObstacle.draw(self._canvasArea)
-        cv2.waitKey(1)
+            cv2.waitKey(1)
         
     def drawMobileRobot(self, node, color = CONSTANT.COLOR_GREEN):
         if isinstance(node, Node):

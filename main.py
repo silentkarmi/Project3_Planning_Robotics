@@ -32,13 +32,15 @@ if __name__ == "__main__":
                 objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.endNode)):
                 
                 start_time = time.time()
-                objTraversal.canvaArea.drawObstacles()
                 objTraversal.createNodeTree()
+                objTraversal.backTrack() # backtracks the solution
                 print(f"Total Nodes Searched:{len(objTraversal._closedList)}")
                 print("--- %s seconds for finding the solution ---" % (time.time() - start_time))
                 
-                objTraversal.backTrack()
-                objTraversal.drawSolution()
+                # VISUALIZATION PART
+                objTraversal.canvaArea.drawObstacles()
+                objTraversal.drawNodeTree() # draws the node tree after solution is found
+                objTraversal.drawSolution() # draws the solution
                 cv2.waitKey(0)
                 quit()
             else:
