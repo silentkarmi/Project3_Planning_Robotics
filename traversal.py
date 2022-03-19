@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Author @ Kartikeya Mishra
+# Author @ Kartikeya Mishra @ Chang-Hong Chen
 
 from platform import node
 import cv2
@@ -93,6 +93,9 @@ class Traversal:
         print("Generating Node Tree...")
         self.pushNode(self.startNode)
         while(self._openList):
+
+            # Run spinning cursor while creating node tree
+            Utility.run_spinning_cursor()
             
             # pops an element from the top of the list
             tempNode = heapq.heappop(self._openList)     

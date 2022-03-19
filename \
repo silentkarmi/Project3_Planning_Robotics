@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Author @ Kartikeya Mishra @ Chang-Hong Chen
+# Author @ Kartikeya Mishra
 
-import sys 
 from dataclasses import dataclass
 from constants import CONSTANT
+import sys 
 
 @dataclass
 class Utility:
@@ -36,14 +36,8 @@ class Utility:
                 for cursor in '|/-\\':
                     yield cursor
 
-        try: 
-            if self.count % 10 == 0: 
-                sys.stdout.write(next(self.spinner))
-                sys.stdout.flush()
-                sys.stdout.write('\b')
-            self.count += 1
-        except AttributeError:
-            self.spinner = spinning_cursor()
-            self.count = 0
-            
-         
+        self.spinner = spinning_cursor()
+        sys.stdout.write(next(self.spinner))
+        sys.stdout.flush()
+        sys.stdout.write('\b')
+     
