@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Author @ Kartikeya Mishra
+# Author @ Kartikeya Mishra @ Chang-Hong Chen
 
 from constants import CONSTANT
 import cv2
