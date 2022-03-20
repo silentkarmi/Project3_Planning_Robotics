@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
-from curses import COLOR_WHITE, COLOR_YELLOW
 from dataclasses import dataclass
 
 @dataclass
