@@ -127,7 +127,7 @@ class Traversal:
             
     def drawSolution(self):  
         print("Drawing the solution...")          
-        for node in self._listSolution[::]:
+        for node in self._listSolution[::CONSTANT.MOBILE_ROBOT_RADIUS + 2 - CONSTANT.VECTOR_LEN]:
             self.canvaArea.drawMobileRobot(node)
             cv2.waitKey(1)
             
