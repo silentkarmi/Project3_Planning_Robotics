@@ -9,6 +9,9 @@ from constants import CONSTANT
 class Utility:
     @staticmethod
     def getCoordinatesInWorldFrame(coord):
+        """
+            Can be used for transforming x, y cart coord to w, h image coord, vice versa.
+        """
         x = y = 0
         if len(coord) > 2:
             x, y, _ = coord
@@ -37,7 +40,7 @@ class Utility:
                     yield cursor
 
         try: 
-            if self.count % 10 == 0: 
+            if self.count % 100 == 0: 
                 sys.stdout.write(next(self.spinner))
                 sys.stdout.flush()
                 sys.stdout.write('\b')

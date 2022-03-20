@@ -20,7 +20,6 @@ class Canvas:
         self._obstacles.append(objObstacle)
 
     def drawObstacles(self):
-        # print("Drawing Obstacles...")
         for objObstacle in self._obstacles:
             objObstacle.draw(self._canvasArea)
         cv2.imshow(CONSTANT.WINDOW_NAME, self._canvasArea)
@@ -56,7 +55,7 @@ class Canvas:
             for w in range(0, CONSTANT.CANVAS_WIDTH): 
                 x, y = Utility.getCoordinatesInWorldFrame((w, h))
                 if not self.isOutsideObstacleSpace((x, y, 0)):
-                    self._obstaclesMap[h, w] = 1
+                    self._obstaclesMap[h, w] = 255
         return self._obstaclesMap
 
     def isOutsideObstacleSpaceByMap(self, coord):

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
-from ast import Constant
 import cv2
 from dataclasses import dataclass
 from obstacles.obstacleInterface import ObstacleInterface
@@ -18,7 +17,6 @@ class CircleObstacle(ObstacleInterface):
     def draw(self, canvasArea):
         cv2.circle(canvasArea, Utility.getCoordinatesInWorldFrame(self.center), 
                    self.radius, CONSTANT.COLOR_RED, -1)
-        # cv2.imshow(CONSTANT.WINDOW_NAME, canvasArea)
         
     def isOutside(self, coord):
         x, y,_ = coord
