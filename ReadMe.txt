@@ -1,5 +1,5 @@
 # Project3 - Phase 1
-It uses A* algorithm to find path for the given map
+It uses A* algorithm to find a path for the given map
 --------------------------------------------------------------------------------------------------
 >> When obstacle objects are drawn, they are inflated internally but not drawn on the screen.
 >> Mobile robot is considered as a point robot during calculation
@@ -24,7 +24,7 @@ It uses A* algorithm to find path for the given map
     - utility.py - functions which used throughout Program
     - constants.py - declare constants which used throughout the Program
     - traversal.py - this is where the A* algorithm is implemented
->> Video Output of the program is included: Kartikeya_M_and_Chang-Hong_A_star.mkv
+>> Video Output of the program is included: Kartikeya_M_and_Chang-Hong_A_star.mp4
 >> This project has been done in a GROUP:
     - Kartikeya Mishra (UID: 118106755)
     - Chang-Hong Chen (UID: 117397857)
