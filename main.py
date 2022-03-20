@@ -11,7 +11,7 @@ if __name__ == "__main__":
     
     while (1):
         
-        startXCoord, startYCoord, startGoalThetha = (input("\nStart X, Y, Theta [Add Space between values]:")).split()
+        startXCoord, startYCoord, startGoalThetha = (input("\nStart X, Y, Theta [Add Space in between the values]:")).split()
         startXCoord, startYCoord, startGoalThetha = int(startXCoord), int(startYCoord), int(startGoalThetha)
         
         if startGoalThetha % 30 != 0:
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         objTraversal = Traversal()
         if objTraversal.canvaArea.isOutsideObstacleSpace(CONSTANT.START_NODE):
                 
-            endXCoord, endYCoord, endGoalThetha = (input("End X, Y, Theta [Add Space in between]:")).split()
+            endXCoord, endYCoord, endGoalThetha = (input("End X, Y, Theta [Add Space in between the values]:")).split()
             endXCoord, endYCoord, endGoalThetha = int(endXCoord), int(endYCoord), int(endGoalThetha)
         
             if endGoalThetha % 30 != 0:
@@ -34,8 +34,8 @@ if __name__ == "__main__":
             
             if (objTraversal.canvaArea.isOutsideObstacleSpace(CONSTANT.GOAL_NODE)):
                 
-                CONSTANT.CLEARANCE = int(input("What's the Clearance from the Mobile Robot:"))
                 CONSTANT.MOBILE_ROBOT_RADIUS = int(input("What's the Mobile Robot Radius:"))
+                CONSTANT.CLEARANCE = int(input("What's the Clearance from the Mobile Robot:"))
                 CONSTANT.VECTOR_LEN = int(input("Enter a Step size [1 - 10]:"))
                 
                 if not(CONSTANT.VECTOR_LEN > 0 and CONSTANT.VECTOR_LEN < 11):
