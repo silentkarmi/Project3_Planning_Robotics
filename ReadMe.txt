@@ -27,7 +27,7 @@ It uses A* algorithm to find path for the given map
 >> Video Output of the program is included: Kartikeya_M_and_Chang-Hong_A_star.mkv
 >> This project has been done in a GROUP:
     - Kartikeya Mishra (UID: 118106755)
-    - Chang-Hong Chen ()
+    - Chang-Hong Chen (UID: 117397857)
 >> Note: Python3 is used to write the code
 >> Command to run from terminal:
 python3 main.py
