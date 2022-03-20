@@ -14,6 +14,10 @@ from obstacles.circleObstacle import CircleObstacle
 from obstacles.hexagonObstacle import HexagonObstacle
 from obstacles.polygonObstacle import PolygonObstacle
 
+import numpy as np
+
+CLOSED_SCALE = 50
+
 @dataclass
 class Traversal:
 
@@ -41,6 +45,8 @@ class Traversal:
                                             (235, round(79.79275)),
                                             (200, round(59.5855))])
         self.canvaArea.addObstacle(objHexagonPolygon)
+        # self.obstaclesMap = self.canvaArea.formObstaclesMap()
+        self.closedNodeMap = np.zeros((CONSTANT.CANVAS_HEIGHT * CLOSED_SCALE, CONSTANT.CANVAS_WIDTH * CLOSED_SCALE, 12), np.uint8)
         
         self.startNode = None
         self.endNode = None
@@ -54,10 +60,15 @@ class Traversal:
    
     def pushNode(self, node):
         if node != None:
-            isNodeSafe = self.canvaArea.isOutsideObstacleSpace(node)
+            isNodeSafe = self.canvaArea.isOutsideObstacleSpace(node.coord)
+            # isNodeSafe = self.canvaArea.isOutsideObstacleSpaceByMap(node.coord)
+            # w, h = Utility.getCoordinatesInWorldFrame(node.coord)
+            # isNodeValid = self.obstaclesMap[h, w] == 0
             
             if isNodeSafe:
-                isNodeInClosedList = (node.coord[0], node.coord[1]) in self._closedList
+                # isNodeInClosedList = (node.coord[0], node.coord[1]) in self._closedList
+                w, h = Utility.getCoordinatesInWorldFrame(node.coord)
+                isNodeInClosedList = self.closedNodeMap[h * CLOSED_SCALE, w * CLOSED_SCALE, node.coord[2]//30] != 0
                 if not isNodeInClosedList:
                     nodeInWorkspace = self.isNodeInOpenListThenUpdate(node)
                     if not nodeInWorkspace:
@@ -87,7 +98,10 @@ class Traversal:
                 is_goal = True
 
         return is_goal
-        
+
+    def AddtoClosedNodeMap(self, node):
+        w, h = Utility.getCoordinatesInWorldFrame(node.coord)
+        self.closedNodeMap[h * CLOSED_SCALE, w * CLOSED_SCALE, node.coord[2]//30] = 1
     
     def createNodeTree(self):
         print("Generating Node Tree...")
@@ -95,13 +109,16 @@ class Traversal:
         while(self._openList):
 
             # Run spinning cursor while creating node tree
-            Utility.run_spinning_cursor()
+            # Utility.run_spinning_cursor()
             
             # pops an element from the top of the list
             tempNode = heapq.heappop(self._openList)     
             self._closeListNodes.append(tempNode)
             self._closedList.add((round(tempNode.coord[0]),
                                         round(tempNode.coord[1])))  
+
+            self.AddtoClosedNodeMap(tempNode)
+
              
             if(self.isThisGoalNode(tempNode)):
                 self.solutionNode = tempNode

@@ -21,7 +21,7 @@ class PolygonObstacle(ObstacleInterface):
         
         npPoints = np.array(pointsOpenCVReference)
         cv2.fillPoly(canvasArea, pts=[npPoints], color = CONSTANT.COLOR_RED)
-        cv2.imshow(CONSTANT.WINDOW_NAME, canvasArea)
+        # cv2.imshow(CONSTANT.WINDOW_NAME, canvasArea)
         
     def isOutside(self, coord):
         # created line equations to describe the boomerang polygon

@@ -18,8 +18,9 @@ if __name__ == "__main__":
         
         objTraversal = Traversal()
         objTraversal.startNode = Node(CONSTANT.START_NODE, None)
-        if Node.isCoordValid(CONSTANT.START_NODE) and \
-            objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.startNode):
+        if (Node.isCoordValid(CONSTANT.START_NODE) and 
+            objTraversal.canvaArea.isOutsideObstacleSpaceByMap(objTraversal.startNode.coord)):
+            # objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.startNode):
                 
             endXCoord =  230#int(input("End X Coordinate:"))
             endYCoord =  200#int(input("End Y Coordinate:"))
@@ -29,7 +30,8 @@ if __name__ == "__main__":
             objTraversal.startNode = Node(CONSTANT.START_NODE, None)
             
             if (Node.isCoordValid(CONSTANT.GOAL_NODE ) and 
-                objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.endNode)):
+                objTraversal.canvaArea.isOutsideObstacleSpaceByMap(objTraversal.endNode.coord)):
+                # objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.endNode)):
                 
                 start_time = time.time()
                 objTraversal.createNodeTree()

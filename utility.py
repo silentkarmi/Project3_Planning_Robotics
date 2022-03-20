@@ -21,7 +21,7 @@ class Utility:
     @staticmethod
     def actionInDegree(thetha, d_thetha = 0):
         result = thetha + d_thetha
-        if result > 360:
+        if result >= 360:
             result = result - 360
         elif result < 0:
             result = 360 + result

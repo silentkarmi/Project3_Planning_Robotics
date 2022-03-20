@@ -8,6 +8,7 @@ from obstacles.obstacleInterface import ObstacleInterface
 
 from constants import CONSTANT
 from utility import Utility
+import numpy as np
 
 @dataclass
 class CircleObstacle(ObstacleInterface):
@@ -17,7 +18,7 @@ class CircleObstacle(ObstacleInterface):
     def draw(self, canvasArea):
         cv2.circle(canvasArea, Utility.getCoordinatesInWorldFrame(self.center), 
                    self.radius, CONSTANT.COLOR_RED, -1)
-        cv2.imshow(CONSTANT.WINDOW_NAME, canvasArea)
+        # cv2.imshow(CONSTANT.WINDOW_NAME, canvasArea)
         
     def isOutside(self, coord):
         x, y,_ = coord
