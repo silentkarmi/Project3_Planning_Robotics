@@ -14,15 +14,16 @@ class Canvas:
         # Create a black image
         self._canvasArea = np.zeros((CONSTANT.CANVAS_HEIGHT, CONSTANT.CANVAS_WIDTH, 3), np.uint8)
         self._obstacles = []
+        self._obstaclesMap = np.zeros((CONSTANT.CANVAS_HEIGHT, CONSTANT.CANVAS_WIDTH), np.uint8)
         
     def addObstacle(self, objObstacle):
         self._obstacles.append(objObstacle)
-    
+
     def drawObstacles(self):
-        print("Drawing Obstacles...")
         for objObstacle in self._obstacles:
             objObstacle.draw(self._canvasArea)
-            cv2.waitKey(1)
+        cv2.imshow(CONSTANT.WINDOW_NAME, self._canvasArea)
+        cv2.waitKey(1)
         
     def drawMobileRobot(self, node, color = CONSTANT.COLOR_GREEN):
         if isinstance(node, Node):
@@ -40,12 +41,25 @@ class Canvas:
                      color)
             cv2.imshow(CONSTANT.WINDOW_NAME, self._canvasArea)
             
-    def isOutsideObstacleSpace(self, node):
+    def isOutsideObstacleSpace(self, coord):
         isValid = True
         for objObstacle in self._obstacles:
-            isValid = objObstacle.isOutside(node.coord)
+            isValid = objObstacle.isOutside(coord)
             if isValid == False:
                 break
             
         return isValid
+
+    def formObstaclesMap(self): 
+        for h in range(0, CONSTANT.CANVAS_HEIGHT): 
+            for w in range(0, CONSTANT.CANVAS_WIDTH): 
+                x, y = Utility.getCoordinatesInWorldFrame((w, h))
+                if not self.isOutsideObstacleSpace((x, y, 0)):
+                    self._obstaclesMap[h, w] = 255
+        return self._obstaclesMap
+
+    def isOutsideObstacleSpaceByMap(self, coord):
+        w, h = Utility.getCoordinatesInWorldFrame(coord)
+
+        return self._obstaclesMap[h, w] == 0 
     
