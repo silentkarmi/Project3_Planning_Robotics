@@ -8,9 +8,12 @@ It uses Dijikstra's algorithm to find path for the given map
     - Red : obstacle
     - White : nodes traversed
     - Black : clearance from the boundary and the obstacles (in the end of traversal) / empty space
-    - Green : The mobile robot with the radius
-    - Blue : Shortest path from start to end coordinates
->> Worst Condition of whole graph traversal can take upto 5 minutes
+    - Orange : Start Node for the Mobile Robot
+    - Green : GOAL node for the Mobile Robot
+    - LightBlue : Intermediate Nodes which Mobile Robot took
+    - Blue : Path Line from start to end coordinates for the Mobile Robot
+>> Even if, the solution found in seconds, 
+but worst Condition of drawing of whole graph traversal can take upto 3 minutes
 >> GitHub URL: https://github.com/silentkarmi/Project3_Planning_Robotics
 >> Structure of the Program
     - main.py - main starting point of the Program

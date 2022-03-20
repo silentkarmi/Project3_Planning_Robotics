@@ -10,29 +10,41 @@ import time
 if __name__ == "__main__":
     
     while (1):
-        #to do input start goal thetha
-        startXCoord = 50#int(input("\nStart X Coordinate:"))
-        startYCoord = 50#int(input("Start Y Coordinate:"))
         
-        CONSTANT.START_NODE = (startXCoord, startYCoord, 0)
+        startXCoord, startYCoord, startGoalThetha = (input("\nStart X, Y, Theta [Add Space between values]:")).split()
+        startXCoord, startYCoord, startGoalThetha = int(startXCoord), int(startYCoord), int(startGoalThetha)
+        
+        if startGoalThetha % 30 != 0:
+            print("Invalid Start Goal Thetha")
+            continue
+        
+        CONSTANT.START_NODE = (startXCoord, startYCoord, startGoalThetha)
         
         objTraversal = Traversal()
-        objTraversal.startNode = Node(CONSTANT.START_NODE, None)
-        if (Node.isCoordValid(CONSTANT.START_NODE) and 
-            objTraversal.canvaArea.isOutsideObstacleSpaceByMap(objTraversal.startNode.coord)):
-            # objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.startNode):
+        if objTraversal.canvaArea.isOutsideObstacleSpace(CONSTANT.START_NODE):
                 
-            endXCoord =  230#int(input("End X Coordinate:"))
-            endYCoord =  200#int(input("End Y Coordinate:"))
+            endXCoord, endYCoord, endGoalThetha = (input("End X, Y, Theta [Add Space in between]:")).split()
+            endXCoord, endYCoord, endGoalThetha = int(endXCoord), int(endYCoord), int(endGoalThetha)
         
-            CONSTANT.GOAL_NODE = (endXCoord, endYCoord, -30)
-            objTraversal.endNode = Node(CONSTANT.GOAL_NODE , None)
-            objTraversal.startNode = Node(CONSTANT.START_NODE, None)
+            if endGoalThetha % 30 != 0:
+                print("Invalid End Goal Thetha")
+                continue
             
-            if (Node.isCoordValid(CONSTANT.GOAL_NODE ) and 
-                objTraversal.canvaArea.isOutsideObstacleSpaceByMap(objTraversal.endNode.coord)):
-                # objTraversal.canvaArea.isOutsideObstacleSpace(objTraversal.endNode)):
+            CONSTANT.GOAL_NODE = (endXCoord, endYCoord, endGoalThetha)
+            
+            if (objTraversal.canvaArea.isOutsideObstacleSpace(CONSTANT.GOAL_NODE)):
                 
+                CONSTANT.CLEARANCE = int(input("What's the Clearance from the Mobile Robot:"))
+                CONSTANT.MOBILE_ROBOT_RADIUS = int(input("What's the Mobile Robot Radius:"))
+                CONSTANT.VECTOR_LEN = int(input("Enter a Step size [1 - 10]:"))
+                
+                if not(CONSTANT.VECTOR_LEN > 0 and CONSTANT.VECTOR_LEN < 11):
+                    print("Invalid Step Length")
+                    continue
+                
+                objTraversal.endNode = Node(CONSTANT.GOAL_NODE , None)
+                objTraversal.startNode = Node(CONSTANT.START_NODE, None)
+                            
                 start_time = time.time()
                 objTraversal.createNodeTree()
                 objTraversal.backTrack() # backtracks the solution

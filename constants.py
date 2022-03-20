@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Author @ Kartikeya Mishra
 
-from curses import COLOR_WHITE
+from curses import COLOR_WHITE, COLOR_YELLOW
 from dataclasses import dataclass
 
 @dataclass
@@ -17,7 +17,8 @@ class CONSTANT:
     GOAL_THRESOLD = 1.5    
     
     MOBILE_ROBOT_RADIUS = 10
-    CLEARANCE = 5 + MOBILE_ROBOT_RADIUS 
+    WALL_CLEARANCE = 5
+    CLEARANCE = WALL_CLEARANCE + MOBILE_ROBOT_RADIUS 
     
     WINDOW_NAME = "Project3_Phase_1"
         
@@ -25,6 +26,8 @@ class CONSTANT:
     
     ORIGIN_POINT_OFFSET = CANVAS_HEIGHT
     COLOR_RED = (0,0,255)
+    COLOR_YELLOW = (0, 215, 255)
     COLOR_GREEN = (0, 100, 0)
     COLOR_BLUE = (255, 0, 0)
+    COLOR_LIGHT_BLUE = (230, 216, 117)
     COLOR_WHITE = (255, 255, 255)

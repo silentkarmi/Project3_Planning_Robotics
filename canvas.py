@@ -1,4 +1,3 @@
-from ast import Constant
 import numpy as np
 import cv2
 from dataclasses import dataclass
@@ -25,7 +24,7 @@ class Canvas:
         cv2.imshow(CONSTANT.WINDOW_NAME, self._canvasArea)
         cv2.waitKey(1)
         
-    def drawMobileRobot(self, node, color = CONSTANT.COLOR_GREEN):
+    def drawMobileRobot(self, node, color = CONSTANT.COLOR_LIGHT_BLUE):
         if isinstance(node, Node):
             cv2.circle(self._canvasArea , 
                      Utility.getCoordinatesInWorldFrame(node.coord),
@@ -43,10 +42,13 @@ class Canvas:
             
     def isOutsideObstacleSpace(self, coord):
         isValid = True
-        for objObstacle in self._obstacles:
-            isValid = objObstacle.isOutside(coord)
-            if isValid == False:
-                break
+        
+        isValid = Node.isCoordValid(coord)
+        if isValid:
+            for objObstacle in self._obstacles:
+                isValid = objObstacle.isOutside(coord)
+                if isValid == False:
+                    break
             
         return isValid
 

@@ -15,7 +15,8 @@ from obstacles.polygonObstacle import PolygonObstacle
 
 import numpy as np
 
-MAP_RESOLUTION_SCALE = 50
+MAP_RESOLUTION_SCALE = 10
+MAP_THRESOLD_REGION = int(0.5 * MAP_RESOLUTION_SCALE)
 ANGLE_RESOLUTION = 30 # degree
 
 @dataclass
@@ -48,7 +49,9 @@ class Traversal:
         self.canvaArea.formObstaclesMap()
 
         # Used for recording closed node in a higher resolution map
-        self.closedNodeMap = np.zeros((CONSTANT.CANVAS_HEIGHT * MAP_RESOLUTION_SCALE, CONSTANT.CANVAS_WIDTH * MAP_RESOLUTION_SCALE, 360 // ANGLE_RESOLUTION), np.uint8)
+        self.closedNodeMap = np.zeros((CONSTANT.CANVAS_HEIGHT * MAP_RESOLUTION_SCALE, 
+                                       CONSTANT.CANVAS_WIDTH * MAP_RESOLUTION_SCALE, 
+                                       360 // ANGLE_RESOLUTION), np.uint8)
         
         self.startNode = None
         self.endNode = None
@@ -62,7 +65,9 @@ class Traversal:
     def isNodeClosed(self, node): 
         # Transform x, y cart coord to w, h image coord
         w, h = Utility.getCoordinatesInWorldFrame(node.coord)
-        return self.closedNodeMap[h * MAP_RESOLUTION_SCALE, w * MAP_RESOLUTION_SCALE, node.coord[2] // ANGLE_RESOLUTION] != 0
+        return self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
+                                  w * MAP_RESOLUTION_SCALE, 
+                                  Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] != 0
 
     def pushNode(self, node):
         if node != None:
@@ -70,24 +75,8 @@ class Traversal:
             
             if isNodeSafe:
                 if not self.isNodeClosed(node):
-                    # nodeInWorkspace = self.isNodeInOpenListThenUpdate(node)
-                    # if not nodeInWorkspace:
-                    # method2: don't update the cost in openlist
                     heapq.heappush(self._openList, node)
-    
-    def isNodeInOpenListThenUpdate(self, node):
-        isInOpenList = False
-        if isinstance(node, Node):
-            for tempNode in self._openList:
-                if tempNode.isEqual(node):
-                    if node.cost2come < tempNode.cost2come:
-                        tempNode.cost2come = node.cost2come
-                        tempNode.parentNode = node.parentNode
-                        
-                    isInOpenList = True 
-                    break
-                    
-        return isInOpenList
+
                 
     def isThisGoalNode(self, nodeToCheck):
         xcentre, ycentre, end_theta = self.endNode.coord
@@ -104,7 +93,28 @@ class Traversal:
     def AddtoClosedNodeMap(self, node):
         # Transform x, y cart coord to w, h image coord
         w, h = Utility.getCoordinatesInWorldFrame(node.coord)
-        self.closedNodeMap[h * MAP_RESOLUTION_SCALE, w * MAP_RESOLUTION_SCALE, node.coord[2] // 30] = 1
+        self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
+                           w * MAP_RESOLUTION_SCALE, 
+                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
+        
+        for counter in range(1, MAP_THRESOLD_REGION):
+            self.closedNodeMap[h * MAP_RESOLUTION_SCALE + counter, 
+                           w * MAP_RESOLUTION_SCALE, 
+                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
+            
+            self.closedNodeMap[h * MAP_RESOLUTION_SCALE - counter, 
+                           w * MAP_RESOLUTION_SCALE, 
+                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
+            
+            self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
+                           w * MAP_RESOLUTION_SCALE + counter, 
+                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
+            
+            self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
+                           w * MAP_RESOLUTION_SCALE - counter, 
+                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
+            
+            
     
     def createNodeTree(self):
         print("Generating Node Tree...")
@@ -117,7 +127,6 @@ class Traversal:
             # pops an element from the top of the list
             tempNode = heapq.heappop(self._openList)     
 
-            # method2: don't update the cost in openlist
             if self.isNodeClosed(tempNode):
                 continue
 
@@ -130,7 +139,7 @@ class Traversal:
 
              
             if(self.isThisGoalNode(tempNode)):
-                print("Total cost: ", tempNode.cost2come)
+                # print("Total cost: ", tempNode.cost2come)
                 self.solutionNode = tempNode
                 break
             
@@ -156,11 +165,16 @@ class Traversal:
             tempNode = tempNode.parentNode
             
     def drawSolution(self):  
-        print("Drawing the solution...")          
-        for node in self._listSolution[::CONSTANT.MOBILE_ROBOT_RADIUS + 2 - CONSTANT.VECTOR_LEN]:
+        print("Drawing the solution...")     
+        
+        mobileRobotStepSize = CONSTANT.MOBILE_ROBOT_RADIUS - CONSTANT.VECTOR_LEN + CONSTANT.WALL_CLEARANCE
+        
+        self.canvaArea.drawMobileRobot(self.startNode, CONSTANT.COLOR_YELLOW)
+        for node in self._listSolution[::mobileRobotStepSize]:
             self.canvaArea.drawMobileRobot(node)
-            cv2.waitKey(1)
+        self.canvaArea.drawMobileRobot(self.solutionNode, CONSTANT.COLOR_GREEN)
             
         for node in self._listSolution[::-1]:
             self.canvaArea.drawNode(node, CONSTANT.COLOR_BLUE)
-            cv2.waitKey(1)
+            
+        cv2.waitKey(1)

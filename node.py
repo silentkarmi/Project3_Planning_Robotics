@@ -78,4 +78,5 @@ class Node:
     
     def isEqual(self, other):
         return (round(self.coord[0]) == round(other.coord[0]) and
-                round(self.coord[1]) == round(other.coord[1]))
+                round(self.coord[1]) == round(other.coord[1]) and
+                Utility.actionInDegree(self.coord[2]) == Utility.actionInDegree(other.coord[2]))
