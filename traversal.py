@@ -98,17 +98,11 @@ class Traversal:
         matrix_degree = Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION
         self.closedNodeMap[matrix_x, matrix_y, matrix_degree] = 1
         
-        # print("==========================================================")
-        # print(f"{matrix_x}, {matrix_y}, {matrix_degree}")
         counter = 0
         for counter_x in range(1, 11):
             for counter_y in range(1, 11):
-                # counter +=1 
-                # print(f"index={int(counter)} matrix_x = {int(matrix_x + counter_x)} matrix_y = {int(matrix_y + counter_y)}\n")
                 self.closedNodeMap[matrix_x + counter_x , 
                                    matrix_y + counter_y, matrix_degree] = 1
-
-        # print("==========================================================")
  
     
     def createNodeTree(self):
