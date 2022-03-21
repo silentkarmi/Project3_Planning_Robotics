@@ -93,28 +93,23 @@ class Traversal:
     def AddtoClosedNodeMap(self, node):
         # Transform x, y cart coord to w, h image coord
         w, h = Utility.getCoordinatesInWorldFrame(node.coord)
-        self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
-                           w * MAP_RESOLUTION_SCALE, 
-                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
+        matrix_x = int(h * MAP_RESOLUTION_SCALE - MAP_THRESOLD_REGION)
+        matrix_y = int(w * MAP_RESOLUTION_SCALE - MAP_THRESOLD_REGION)
+        matrix_degree = Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION
+        self.closedNodeMap[matrix_x, matrix_y, matrix_degree] = 1
         
-        for counter in range(1, MAP_THRESOLD_REGION):
-            self.closedNodeMap[h * MAP_RESOLUTION_SCALE + counter, 
-                           w * MAP_RESOLUTION_SCALE, 
-                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
-            
-            self.closedNodeMap[h * MAP_RESOLUTION_SCALE - counter, 
-                           w * MAP_RESOLUTION_SCALE, 
-                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
-            
-            self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
-                           w * MAP_RESOLUTION_SCALE + counter, 
-                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
-            
-            self.closedNodeMap[h * MAP_RESOLUTION_SCALE, 
-                           w * MAP_RESOLUTION_SCALE - counter, 
-                           Utility.actionInDegree(node.coord[2]) // ANGLE_RESOLUTION] = 1
-            
-            
+        # print("==========================================================")
+        # print(f"{matrix_x}, {matrix_y}, {matrix_degree}")
+        counter = 0
+        for counter_x in range(1, 11):
+            for counter_y in range(1, 11):
+                # counter +=1 
+                # print(f"index={int(counter)} matrix_x = {int(matrix_x + counter_x)} matrix_y = {int(matrix_y + counter_y)}\n")
+                self.closedNodeMap[matrix_x + counter_x , 
+                                   matrix_y + counter_y, matrix_degree] = 1
+
+        # print("==========================================================")
+ 
     
     def createNodeTree(self):
         print("Generating Node Tree...")
