@@ -157,6 +157,8 @@ class Traversal:
         print("Drawing the solution...")     
         
         mobileRobotStepSize = CONSTANT.MOBILE_ROBOT_RADIUS - CONSTANT.VECTOR_LEN + CONSTANT.WALL_CLEARANCE
+        if mobileRobotStepSize <= 0:
+            mobileRobotStepSize = 1
         
         self.canvaArea.drawMobileRobot(self.startNode, CONSTANT.COLOR_YELLOW)
         for node in self._listSolution[::mobileRobotStepSize]:
